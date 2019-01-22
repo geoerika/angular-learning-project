@@ -72,27 +72,24 @@ export class RentalService {
 
   public getRentals(): Observable<Rental[]> { //observable of type Rental array
 
-    const rentalObservable: Observable<Rental[]> = new Observable((observer) => {
+    return new Observable<Rental[]>((observer) => {
 
       setTimeout(() => {
 
         observer.next(this.rentals);
       }, 1000);
 
-      setTimeout(() => {
+      // setTimeout(() => {
 
-        observer.error('I AM ERROR');
-      }, 2000);
+      //   observer.error('I AM ERROR');
+      // }, 2000);
 
-      setTimeout(() => {
+      // setTimeout(() => {
 
-        observer.complete();
-      }, 3000);
-
+      //   observer.complete();
+      // }, 3000);
 
     });
-
-    return rentalObservable;
   }
 
 }
