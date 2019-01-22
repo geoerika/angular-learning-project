@@ -58,6 +58,18 @@ export class RentalService {
     createdAt: "24/12/2017"
   }];
 
+  public getRentalById(rentalId: string): Observable<Rental> {
+    return new Observable<Rental>((observer) => {
+
+      setTimeout(() => {
+        const foundRental = this.rentals.find((rental) => {
+                              return rental.id === rentalId;
+                            });
+        observer.next(foundRental);
+      }, 500);
+    });
+  }
+
   public getRentals(): Observable<Rental[]> { //observable of type Rental array
 
     const rentalObservable: Observable<Rental[]> = new Observable((observer) => {
