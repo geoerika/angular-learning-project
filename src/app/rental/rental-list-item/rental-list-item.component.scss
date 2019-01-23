@@ -1,3 +1,11 @@
+@import 'variables';
+
+a {
+  &:hover, &:focus {
+    text-decoration: none;
+  }
+}
+
 /* SINGLE CARD STYLES*/
 .bwm-card {
   border: none;
@@ -16,6 +24,7 @@
     .card-title {
       font-size: 19px;
       margin: 3px 0;
+      color: $main-text-color;
     }
 
     .card-text {
