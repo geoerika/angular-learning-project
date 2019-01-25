@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './map.component';
+import { environment } from '../../../environments/environment';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,7 @@ import { MapComponent } from './map.component';
   ],
   imports: [
     AgmCoreModule.forRoot({
-      apiKey: 'AIzaSyCArokX5qOSOk7V7KnV6JZ_4TgDpMJpxrY '
+      apiKey: environment.agmApiKey
     })
   ],
   providers: []
