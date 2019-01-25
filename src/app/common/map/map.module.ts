@@ -1,11 +1,6 @@
 import { NgModule } from '@angular/core';
-import { MapComponent } from './map.component';
 import { AgmCoreModule } from '@agm/core';
-
-
-const routes: Routes = [
-{path:'', redirectTo: '/rentals', pathMatch: 'full'}
-]
+import { MapComponent } from './map.component';
 
 @NgModule({
   declarations: [
