@@ -24,8 +24,9 @@
             <span><i class="fa fa-bed"></i> {{rental.bedrooms + 2}} beds</span>
           </div>
           <p class="rental-description">
-            {{ rental.description | upper }} <!-- upper comes from the common/pipes/uppercase.pipe.js, our costum pipe -->
-            <!-- {{rental.description | uppercase}}  we can use here the pipe uppercase -->
+            {{ rental.description }}
+            <!-- {{ rental.description | upper }}upper comes from the common/pipes/uppercase.pipe.js, our costum pipe
+             {{rental.description | uppercase}}  we can use here the pipe uppercase -->
           </p>
           <hr>
           <div class="rental-assets">
