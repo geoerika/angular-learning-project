@@ -12,31 +12,47 @@ export class MapService {
 
   constructor(private camelizePipe: CamelizePipe) {}
 
+  private camelize(value: string): string {
+    return this.camelizePipe.transform(value);
+  }
+
   private cacheLocation(location: string, coordinates: any) {
-    const camelizedLocation = this.camelizePipe.transform(location);
+    const camelizedLocation = this.camelize(location);
     this.locationCache[camelizedLocation] = coordinates;
+  }
+
+  private isLocationCached(location): boolean {
+    return this.locationCache[this.camelize(location)];
+
   }
 
   public geocodeLocation(location: string): Observable<any> {
 
     this.geoCoder = new (<any>window).google.maps.Geocoder();
+    debugger;
 
     return new Observable((observer) => {
 
-      this.geoCoder.geocode({address: location}, (result, status) => {
+      if (this.isLocationCached(location)) {
 
-        if(status === 'OK') {
-          const geometry = result[0].geometry.location;
-          const coordinates = {lat: geometry.lat(), lng: geometry.lng()};
+        observer.next(this.locationCache[this.camelize(location)]);
 
-          this.cacheLocation(location, coordinates);
-          observer.next(coordinates);
-        } else {
-          observer.error('location could not be geocoded');
-        }
+      } else {
 
-      })
+        this.geoCoder.geocode({address: location}, (result, status) => {
 
+          if(status === 'OK') {
+            const geometry = result[0].geometry.location;
+            const coordinates = {lat: geometry.lat(), lng: geometry.lng()};
+
+            this.cacheLocation(location, coordinates);
+            observer.next(coordinates);
+          } else {
+            observer.error('location could not be geocoded');
+          }
+
+        })
+      }
     });
   }
 
