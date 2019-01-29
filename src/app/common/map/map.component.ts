@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input, ChangeDetectorRef } from '@angular/core';
 import { MapService } from './map.service';
 
 @Component({
@@ -6,19 +6,16 @@ import { MapService } from './map.service';
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent {
 
   @Input() location: string;
-
   isPositionError: boolean = false;
 
   lat: number;
   lng: number;
 
-  constructor(private mapService: MapService) { }
-
-  ngOnInit() {
-  }
+  constructor(private mapService: MapService,
+              private ref:ChangeDetectorRef) { } //to avoid an empty map at the beginning on the page
 
   mapReadyHandler() {
 
@@ -31,10 +28,9 @@ export class MapComponent implements OnInit {
       (coordinates) => {
         this.lat = coordinates.lat;
         this.lng = coordinates.lng;
+        this.ref.detectChanges();
       }, () => {
         this.isPositionError = true;
       });
   }
-
-
 }
