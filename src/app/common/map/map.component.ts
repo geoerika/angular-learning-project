@@ -10,6 +10,8 @@ export class MapComponent implements OnInit {
 
   @Input() location: string;
 
+  isPositionError: boolean = false;
+
   lat: number;
   lng: number;
 
@@ -23,6 +25,8 @@ export class MapComponent implements OnInit {
       (coordinates) => {
         this.lat = coordinates.lat;
         this.lng = coordinates.lng;
+      }, () => {
+        this.isPositionError = true;
       });
   }
 

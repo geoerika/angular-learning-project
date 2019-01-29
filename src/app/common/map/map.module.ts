@@ -3,6 +3,7 @@ import { AgmCoreModule } from '@agm/core';
 import { MapComponent } from './map.component';
 import { environment } from '../../../environments/environment';
 import { CamelizePipe } from 'ngx-pipes';
+import { CommonModule } from '@angular/common';
 
 import { MapService } from './map.service';
 
@@ -17,7 +18,8 @@ import { MapService } from './map.service';
   imports: [
     AgmCoreModule.forRoot({
       apiKey: 'AIzaSyCDuLLmvl1bCGjhxjfd-qIhHeJttVHecAI'
-    })
+    }),
+    CommonModule
   ],
   providers: [
     MapService,
