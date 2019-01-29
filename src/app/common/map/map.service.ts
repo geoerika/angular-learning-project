@@ -1,5 +1,5 @@
 import { Injectable} from '@angular/core';
-import { Observable } from 'rxjs';
+import { of as observableOf, Observable } from 'rxjs';
 import { CamelizePipe } from 'ngx-pipes';
 
 
@@ -17,8 +17,7 @@ export class MapService {
   }
 
   private cacheLocation(location: string, coordinates: any) {
-    const camelizedLocation = this.camelize(location);
-    this.locationCache[camelizedLocation] = coordinates;
+    this.locationCache[this.camelize(location)] = coordinates;
   }
 
   private isLocationCached(location): boolean {
@@ -26,20 +25,17 @@ export class MapService {
 
   }
 
-  public geocodeLocation(location: string): Observable<any> {
+  private geocodeLocation(location: string): Observable<any> {
 
-    this.geoCoder = new (<any>window).google.maps.Geocoder();
     debugger;
+
+    if (!this.geoCoder) {
+      this.geoCoder = new (<any>window).google.maps.Geocoder();
+    }
 
     return new Observable((observer) => {
 
-      if (this.isLocationCached(location)) {
-
-        observer.next(this.locationCache[this.camelize(location)]);
-
-      } else {
-
-        this.geoCoder.geocode({address: location}, (result, status) => {
+      this.geoCoder.geocode({address: location}, (result, status) => {
 
           if(status === 'OK') {
             const geometry = result[0].geometry.location;
@@ -51,9 +47,20 @@ export class MapService {
             observer.error('location could not be geocoded');
           }
 
-        })
-      }
-    });
+      })
+    })
   }
 
+  public getGeoLocation(location: string): Observable<any> {
+
+    debugger;
+
+    if (this.isLocationCached(location)) {
+
+      return observableOf(this.locationCache[this.camelize(location)]);
+
+    } else {
+      return this.geocodeLocation(location);
+    }
+  }
 }
