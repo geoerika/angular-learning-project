@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { AgmCoreModule } from '@agm/core';
+import { CommonModule } from '@angular/common';
+
 import { MapComponent } from './map.component';
 import { environment } from '../../../environments/environment';
 import { CamelizePipe } from 'ngx-pipes';
-import { CommonModule } from '@angular/common';
-
 import { MapService } from './map.service';
 
 
