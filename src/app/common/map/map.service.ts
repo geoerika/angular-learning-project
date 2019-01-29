@@ -22,7 +22,6 @@ export class MapService {
 
   private isLocationCached(location): boolean {
     return this.locationCache[this.camelize(location)];
-
   }
 
   private geocodeLocation(location: string): Observable<any> {
@@ -44,17 +43,14 @@ export class MapService {
           } else {
             observer.error('location could not be geocoded');
           }
-
-      })
-    })
+      });
+    });
   }
 
   public getGeoLocation(location: string): Observable<any> {
 
     if (this.isLocationCached(location)) {
-
       return observableOf(this.locationCache[this.camelize(location)]);
-
     } else {
       return this.geocodeLocation(location);
     }
