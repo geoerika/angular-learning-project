@@ -3,7 +3,7 @@
          [longitude]="lng"
          [zoom]="13">
   <!--testing is the position error exists -->
-  <agm-circle *ngIf="!isPositionError"
+  <agm-circle *ngIf="!isPositionError && lat && lng"
     [latitude]="lat"
     [longitude]="lng"
     [radius]="800"
@@ -12,8 +12,8 @@
   </agm-circle>
 
   <agm-info-window *ngIf="isPositionError"
-    [latitude]="lat"
-    [longitude]="lng"
+    [latitude]="0"
+    [longitude]="0"
     [maxWidth]="300"
     [isOpen]=true>
       Uuuups, there is a problem to find location on the map, we are trying

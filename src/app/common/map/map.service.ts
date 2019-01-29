@@ -27,8 +27,6 @@ export class MapService {
 
   private geocodeLocation(location: string): Observable<any> {
 
-    debugger;
-
     if (!this.geoCoder) {
       this.geoCoder = new (<any>window).google.maps.Geocoder();
     }
@@ -52,8 +50,6 @@ export class MapService {
   }
 
   public getGeoLocation(location: string): Observable<any> {
-
-    debugger;
 
     if (this.isLocationCached(location)) {
 

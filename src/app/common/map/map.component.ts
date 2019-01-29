@@ -21,6 +21,12 @@ export class MapComponent implements OnInit {
   }
 
   mapReadyHandler() {
+
+    // let currentLocation = this.location;
+    // if (Math.round(Math.random() * 10) > 5) { //random function to test if error location message appears on the screen
+    //   currentLocation = "sadad78asd6a87d"
+    // }
+
     this.mapService.getGeoLocation(this.location).subscribe(
       (coordinates) => {
         this.lat = coordinates.lat;
