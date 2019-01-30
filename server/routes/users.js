@@ -1,15 +1,10 @@
 const express = require('express');
+const User = require('../controllers/user');
 const router = express.Router();
-const Rental = require('../models/rental');
-const User = require('../models/user');
 
 
-router.post('/auth', function(req, res) { //handler function {
+router.post('/auth', User.auth);
 
-});
-
-router.post('/register', function(req,res) {
-
-});
+router.post('/register', User.register);
 
 module.exports = router;
