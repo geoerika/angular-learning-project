@@ -1,3 +1,4 @@
+const bcrypt = require('bcryptjs');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
@@ -24,5 +25,15 @@ const userSchema = new Schema ({
   },
   rentals: [{ type: Schema.Types.ObjectId, ref: 'Rental' }]
 });
+
+userSchema.pre('save', function(next) {
+  const user = this;
+  bcrypt.genSalt(10, function(err, salt) {
+    bcrypt.hash(user.password, salt, function(err, hash) {
+        user.password = hash;
+        next();
+    });
+  });
+})
 
 module.exports = mongoose.model('User', userSchema );
