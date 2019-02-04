@@ -18,7 +18,7 @@ exports.auth =function(req, res) { //handler function for routes
       return res.status(422).send({errors: [title: 'Invalid user!', detail: "Wrong email or password!"]});
     }
 
-    if (user.isSamePassword(password)) {
+    if (user.hasSamePassword(password)) {
       //return JWT
 
     } else {
