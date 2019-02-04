@@ -15,15 +15,16 @@ exports.auth =function(req, res) { //handler function for routes
     }
 
     if (!user) {
-      return res.status(422).send({errors: [title: 'Invalid user!', detail: "Wrong email or password!"]});
+      return res.status(422).send({errors: [{title: 'Invalid user!', detail: "Wrong email or password!"}]});
     }
 
     if (user.hasSamePassword(password)) {
       //return JWT
 
     } else {
-      return res.status(422).send({errors: [title: 'Wrong Data!', detail: "User doesn't exist!"]});
+      return res.status(422).send({errors: [{title: 'Wrong Data!', detail: "User doesn't exist!"}]});
     }
+  });
 
 }
 
