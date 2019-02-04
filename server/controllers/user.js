@@ -1,5 +1,7 @@
 const User = require('../models/user');
 const { normalizedErrors } = require('../helpers/moongose');
+const jwt = require('jsonwebtoken');
+const config = require('../config/dev');
 
 exports.auth =function(req, res) { //handler function for routes
 
@@ -19,7 +21,11 @@ exports.auth =function(req, res) { //handler function for routes
     }
 
     if (user.hasSamePassword(password)) {
-      //return JWT
+      const token = jwt.sign({
+                        userId: user.id,
+                        username: user.username
+                    }, config.SECRET, { expiresIn: '1h' });
+      return res.json(token);
 
     } else {
       return res.status(422).send({errors: [{title: 'Wrong Data!', detail: "User doesn't exist!"}]});
