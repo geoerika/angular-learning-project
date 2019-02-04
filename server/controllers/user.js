@@ -3,6 +3,28 @@ const { normalizedErrors } = require('../helpers/moongose');
 
 exports.auth =function(req, res) { //handler function for routes
 
+  const { email, password } = req.body;
+
+  if (!password || !email) {
+    return res.status(422).send({errors: [{title: 'Data missing!', detail: 'Provide email and password!'}]});
+  }
+
+  User.findOne({email}, function(err, user) {
+    if (err) {
+      res.status(422).send({errors: normalizedErrors(err.errors)});
+    }
+
+    if (!user) {
+      return res.status(422).send({errors: [title: 'Invalid user!', detail: "Wrong email or password!"]});
+    }
+
+    if (user.isSamePassword(password)) {
+      //return JWT
+
+    } else {
+      return res.status(422).send({errors: [title: 'Wrong Data!', detail: "User doesn't exist!"]});
+    }
+
 }
 
 exports.register = function(req, res) {
