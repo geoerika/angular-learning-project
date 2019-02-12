@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators} from '@angular/forms';
+import { AuthService } from '../shared/auth.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'bwm-login',
@@ -10,7 +12,10 @@ export class LoginComponent implements OnInit {
 
   loginForm: FormGroup;
 
-  constructor(private fb: FormBuilder) { }
+  constructor(private fb: FormBuilder,
+              private auth: AuthService,
+              private router: Router)
+  { }
 
   ngOnInit() {
     this.initForm();
@@ -35,7 +40,15 @@ export class LoginComponent implements OnInit {
   }
 
   login() {
-    debugger;
-    console.log(this.loginForm.value);
+
+    this.auth.login(this.loginForm.value).subscribe(
+      (token) => {
+        debugger;
+        this.router.navigate(['rentals']);
+      },
+      () => {
+      }
+    )
   }
+
 }
