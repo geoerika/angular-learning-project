@@ -15,10 +15,7 @@ export class AuthService {
 
   public login(userData: any): Observable<any> {
     return this.http.post('/api/v1/users/auth', userData).map(
-      (token) => {
-        debugger;
-        return this.saveToken(token);
-      });
+      (token) => this.saveToken(token));
   }
 
   private saveToken(token: any): any {
