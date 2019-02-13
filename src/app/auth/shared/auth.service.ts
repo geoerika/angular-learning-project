@@ -1,11 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import 'rxjs/Rx'; //to have access to map function
+
+const jwt = new JwtHelperService();
+
+class DecodedToken {
+  exp: number = 0;
+  username: string = '';
+}
 
 
 @Injectable()
 export class AuthService {
+
+  private decodedToken;
 
   constructor(private http: HttpClient) {}
 
@@ -19,7 +29,10 @@ export class AuthService {
   }
 
   private saveToken(token: any): any {
+    this.decodedToken = jwt.decodeToken(token);
     localStorage.setItem('bwm_auth', token);
+    localStorage.setItem('bwm_meta', JSON.stringify(this.decodedToken));
+
     return token;
   }
 }
