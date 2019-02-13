@@ -42,7 +42,18 @@ export class AuthService {
       (token) => this.saveToken(token));
   }
 
+  public logout() {
+    localStorage.removeItem('bwm_auth'); //remove the token from the local storage
+    localStorage.removeItem('bwm_meta');
+    this.decodedToken = new DecodedToken(); //reset the token after the logout to default
+  }
+
   public isAuthenticated(): boolean {
     return moment().isBefore(this.getExpiration());
+  }
+
+  public getUsername(): string {
+    console.log('this.decodedToken.username: ', this.decodedToken.username);
+    return this.decodedToken.username;
   }
 }
