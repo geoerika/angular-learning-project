@@ -28,6 +28,7 @@
     "express": "^4.16.4",
     "font-awesome": "^4.7.0",
     "jsonwebtoken": "^8.4.0",
+    "moment": "^2.24.0",
     "mongoose": "^5.4.6",
     "ngx-pipes": "^2.3.6",
     "nodemon": "^1.18.9",
