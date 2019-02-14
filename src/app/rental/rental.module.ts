@@ -20,7 +20,7 @@ const routes: Routes = [
     children: [
       { path: '', component: RentalListComponent },
       { path: ':rentalId', component: RentalDetailComponent, canActivate: [AuthGuard]} //prevent access with AuthGuard
-      ]
+    ]
   }
 ]
 
@@ -41,6 +41,4 @@ const routes: Routes = [
   ],
   providers: [RentalService]
 })
-export class RentalModule {
-
-}
+export class RentalModule {}
