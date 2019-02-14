@@ -52,6 +52,10 @@ export class AuthService {
     return moment().isBefore(this.getExpiration());
   }
 
+  public getAuthToken():string {
+    return localStorage.getItem('bwm_auth');
+  }
+
   public getUsername(): string {
     console.log('this.decodedToken.username: ', this.decodedToken.username);
     return this.decodedToken.username;
