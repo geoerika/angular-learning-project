@@ -1,5 +1,6 @@
 const Booking = require('../models/booking');
 const Rental = require('../models/rental');
+const User = require('../models/user');
 const { normalizedErrors } = require('../helpers/moongose');
 const moment = require('moment');
 
@@ -22,12 +23,22 @@ exports.createBooking = function(req, res) {
           }
 
           if (isValidBooking(booking, foundRental)) {
+            booking.user = user;
+            booking.rental = foundRental;
             foundRental.bookings.push(booking);
-            foundRental.save();
-            booking.save();
+            booking.save(function(err) {
+              if (err) {
+                res.status(422).send({errors: normalizedErrors(err.errors)});
+              }
+              foundRental.save();
+              User.update(
+                 { _id: user.id },
+                 { $push: { bookings: booking } },
+                 function(){}
+              );
 
-            //update user;
-            return res.json({"created": true});
+              return res.json({startAt: booking.startAt, endAt: booking.endAt});
+            });
           } else {
             return res.status(422).send({errors: [{title: 'Invalid Booking!', detail: 'Chosen Dates are already taken!'}]});
           }
@@ -36,16 +47,16 @@ exports.createBooking = function(req, res) {
 
 function isValidBooking(proposedBooking, rental) {
   let isValid = true;
-    if(rental.bookings && rental.bookings.length > 0) {
-      isValid = rental.bookings.every(function(booking) {
-        const proposedStart = moment(proposedBooking.startAt);
-        const proposedEnd = moment(proposedBooking.endAt);
+  if(rental.bookings && rental.bookings.length > 0) {
+    isValid = rental.bookings.every(function(booking) {
+      const proposedStart = moment(proposedBooking.startAt);
+      const proposedEnd = moment(proposedBooking.endAt);
 
-        const actualStart= moment(booking.startAt);
-        const actualEnd= moment(booking.endAt);
+      const actualStart= moment(booking.startAt);
+      const actualEnd= moment(booking.endAt);
 
-        return ((actualStart < proposedStart && actualEnd < proposedStart) || (proposedEnd < actualEnd && proposedEnd < actualStart));
-      });
-    }
+      return ((actualStart < proposedStart && actualEnd < proposedStart) || (proposedEnd < actualEnd && proposedEnd < actualStart));
+    });
+  }
   return isValid;
 }
