@@ -1,6 +1,7 @@
 const Booking = require('../models/booking');
 const Rental = require('../models/rental');
 const { normalizedErrors } = require('../helpers/moongose');
+const moment = require('moment');
 
 exports.createBooking = function(req, res) {
   const { startAt, endAt, totalPrice, guests, days, rental } = req.body;
@@ -20,9 +21,31 @@ exports.createBooking = function(req, res) {
             return res.status(422).send({errors: [{title: 'Invalid User!', detail: 'Cannot create Booking on your Rental!'}]});
           }
 
-          //Check here for valid booking
+          if (isValidBooking(booking, foundRental)) {
+            foundRental.bookings.push(booking);
+            foundRental.save();
+            booking.save();
 
-          return res.json({booking, foundRental});
-
+            //update user;
+            return res.json({"created": true});
+          } else {
+            return res.status(422).send({errors: [{title: 'Invalid Booking!', detail: 'Chosen Dates are already taken!'}]});
+          }
         })
+}
+
+function isValidBooking(proposedBooking, rental) {
+  let isValid = true;
+    if(rental.bookings && rental.bookings.length > 0) {
+      isValid = rental.bookings.every(function(booking) {
+        const proposedStart = moment(proposedBooking.startAt);
+        const proposedEnd = moment(proposedBooking.endAt);
+
+        const actualStart= moment(booking.startAt);
+        const actualEnd= moment(booking.endAt);
+
+        return ((actualStart < proposedStart && actualEnd < proposedStart) || (proposedEnd < actualEnd && proposedEnd < actualStart));
+      });
+    }
+  return isValid;
 }
