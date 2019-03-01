@@ -57,7 +57,7 @@ export class AuthService {
   }
 
   public getUsername(): string {
-    console.log('this.decodedToken.username: ', this.decodedToken.username);
+    // console.log('this.decodedToken.username: ', this.decodedToken.username);
     return this.decodedToken.username;
   }
 }
