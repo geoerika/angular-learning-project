@@ -9,12 +9,14 @@ import { Daterangepicker } from 'ng2-daterangepicker';
 import { RentalListComponent } from './rental-list/rental-list.component';
 import { RentalListItemComponent } from './rental-list-item/rental-list-item.component';
 import { RentalComponent } from './rental.component';
-import { RentalService } from './shared/rental.service';
 import { RentalDetailComponent } from './rental-detail/rental-detail.component';
+import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
+
+import { RentalService } from './shared/rental.service';
+import { HelperService } from '../common/service/helper.service';
 
 import { UppercasePipe } from '../common/pipes/uppercase.pipe';
 import { AuthGuard } from '../auth/shared/auth.guard';
-import { RentalDetailBookingComponent } from './rental-detail/rental-detail-booking/rental-detail-booking.component';
 
 const routes: Routes = [
   { path:'rentals',
@@ -43,6 +45,9 @@ const routes: Routes = [
     MapModule,
     Daterangepicker
   ],
-  providers: [RentalService]
+  providers: [
+    RentalService,
+    HelperService
+  ]
 })
 export class RentalModule {}
