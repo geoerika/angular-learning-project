@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Booking } from '../../../booking/shared/booking.model';
 import { HelperService } from '../../../common/service/helper.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'bwm-rental-detail-booking',
@@ -16,9 +17,10 @@ export class RentalDetailBookingComponent implements OnInit {
   bookedOutDates:any[] = [];
 
   options: any = {
-    locale: { format: 'Y-MM-DD' },
+    locale: { format: Booking.DATE_FORMAT },
     alwaysShowCalendars: false,
-    opens: 'left'
+    opens: 'left',
+    isInvalidDate: this.checkForInvalidDates.bind(this) //bind(this) so we have the cntext of bookedOutdates for this function
   };
 
   constructor(private helper: HelperService) { }
@@ -26,6 +28,10 @@ export class RentalDetailBookingComponent implements OnInit {
   ngOnInit() {
     this.getBookedOutDates();
   }
+
+  private checkForInvalidDates(date) {
+    return this.bookedOutDates.includes(date.format(Booking.DATE_FORMAT)) || date.diff(moment(), 'days') < 0; //second is checking if date is before today so we disable those in the calendar as well
+  };
 
   private getBookedOutDates() {
     if (this.bookings && this.bookings.length > 0 ) {
