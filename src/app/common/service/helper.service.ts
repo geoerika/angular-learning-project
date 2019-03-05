@@ -25,7 +25,7 @@ export class HelperService {
   }
 
   public getBookingDateFormat(date) {
-    return this.formatdate(date, Booking.DATE_FORMAT);
+    return this.formatDate(date, Booking.DATE_FORMAT);
   }
 
   public getBookingRangeOfDates(startAt, endAt) {
