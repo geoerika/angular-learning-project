@@ -20,6 +20,14 @@ export class HelperService {
     return tempDates;
   }
 
+  private formatDate(date, dateFormat) {
+    return moment(date).format(dateformat);
+  }
+
+  public getBookingDateFormat(date) {
+    return this.formatdate(date, Booking.DATE_FORMAT);
+  }
+
   public getBookingRangeOfDates(startAt, endAt) {
     return this.getRangeOfDates(startAt, endAt, Booking.DATE_FORMAT);
   }
