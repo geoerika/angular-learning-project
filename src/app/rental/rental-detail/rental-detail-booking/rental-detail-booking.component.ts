@@ -36,7 +36,7 @@ export class RentalDetailBookingComponent implements OnInit {
   private getBookedOutDates() {
     if (this.bookings && this.bookings.length > 0 ) {
       this.bookings.forEach((booking: Booking) => {
-        const dateRange = this.helper.getRangeOfDates(booking.startAt, booking.endAt);
+        const dateRange = this.helper.getBookingRangeOfDates(booking.startAt, booking.endAt);
         this.bookedOutDates.push(...dateRange); //destructurizing dateRange to push dates not array of dates
       });
     }
