@@ -21,7 +21,7 @@ export class HelperService {
   }
 
   private formatDate(date, dateFormat) {
-    return moment(date).format(dateformat);
+    return moment(date).format(dateFormat);
   }
 
   public getBookingDateFormat(date) {
