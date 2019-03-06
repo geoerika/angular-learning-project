@@ -1,5 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Booking } from '../../../booking/shared/booking.model';
+import { Rental  } from '../../shared/rental.model'
 import { HelperService } from '../../../common/service/helper.service';
 import * as moment from 'moment';
 
@@ -10,8 +11,7 @@ import * as moment from 'moment';
 })
 export class RentalDetailBookingComponent implements OnInit {
 
-  @Input() price: number;
-  @Input() bookings: Booking[]; //an array of bookings
+  @Input() rental: Rental;
 
   daterange: any = {};
   bookedOutDates:any[] = [];
@@ -37,8 +37,11 @@ export class RentalDetailBookingComponent implements OnInit {
   };
 
   private getBookedOutDates() {
-    if (this.bookings && this.bookings.length > 0 ) {
-      this.bookings.forEach((booking: Booking) => {
+
+    const bookings: Booking[] = this.rental.bookings;
+
+    if (bookings && bookings.length > 0 ) {
+      bookings.forEach((booking: Booking) => {
         const dateRange = this.helper.getBookingRangeOfDates(booking.startAt, booking.endAt);
         this.bookedOutDates.push(...dateRange); //destructurizing dateRange to push dates not array of dates
       });
