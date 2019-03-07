@@ -48,19 +48,16 @@ export class RentalDetailBookingComponent implements OnInit {
     }
   }
 
+  reserveRental() {
+    console.log(this.newBooking);
+  }
+
   selectedDate(value: any, datepicker?: any) {
 
     this.newBooking.startAt = this.helper.formatBookingDate(value.start);
     this.newBooking.endAt = this.helper.formatBookingDate(value.end);
     this.newBooking.days = value.end.diff(value.start, 'days');
     this.newBooking.totalPrice = this.newBooking.days * this.rental.dailyRate;
-
-    console.log(this.newBooking, this.newBooking.guests);
-
-    // or manupulat your own internal property
-    this.daterange.start = value.start;
-    this.daterange.end = value.end;
-    this.daterange.label = value.label;
   }
 
 }
