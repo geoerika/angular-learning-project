@@ -34,11 +34,12 @@ export class AuthService {
   }
 
   public register(userData: any): Observable<any> {
-    return this.http.post('/api/v1/users/register', userData);
+    console.log('userData in auth Service: ', userData)
+    return this.http.post('http://localhost:3001/api/v1/users/register', userData);
   }
 
   public login(userData: any): Observable<any> {
-    return this.http.post('/api/v1/users/auth', userData).map(
+    return this.http.post('http://localhost:3001/api/v1/users/auth', userData).map(
       (token) => this.saveToken(token));
   }
 
