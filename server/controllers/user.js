@@ -21,6 +21,7 @@ exports.auth =function(req, res) { //handler function for routes
     }
 
     if (user.hasSamePassword(password)) {
+      // if (true) {
       const token = jwt.sign({
                         userId: user.id,
                         username: user.username
