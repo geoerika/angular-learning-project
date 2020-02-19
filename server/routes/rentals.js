@@ -5,9 +5,9 @@ const Rental = require('../models/rental');
 
 const UserCtrl = require('../controllers/user');
 
-router.get('/secret', UserCtrl.authMiddleware, function(req, res) {
-  res.json({"secret": true});
-})
+// router.get('/secret', UserCtrl.authMiddleware, function(req, res) {
+//   res.json({"secret": true});
+// })
 
 
 router.get('', function(req, res) { //handler function {
@@ -17,6 +17,10 @@ router.get('', function(req, res) { //handler function {
           res.json(foundRentals);
         });
 });
+
+// router.get('', function(req, res) { //handler function {
+//   res.json({'success': true});
+// });
 
 router.get('/:id', function(req,res) {
   const rentalId = req.params.id;
