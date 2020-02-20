@@ -3,7 +3,7 @@
 angular-learning-project is an Airbnb-like app.
 Built with TypeScript, JavaScript, Angular, Node.js, MongoDB
 
-Users can register, login, and get access a list of home listing whch they can reserve.
+Users can register, login, and get access to a list of homes which they can reserve.
 
 ## Project Current State
 
