@@ -1,27 +1,19 @@
-# BwmCli
+# angular-learning-project
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.1.
+angular-learning-project is an Airbnb-like app.
+Built with TypeScript, JavaScript, Angular, Node.js, MongoDB
 
-## Development server
+Users can register, login, and get access a list of home listing whch they can reserve.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Project Current State
 
-## Code scaffolding
+!["Screenshot of /rental/:id"](https://github.com/geoerika/angular-learning-project/blob/master/docs/Screenshot%20from%202020-02-19%2017-24-37.png)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Getting Started
 
-## Build
-
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+1. Create a MongoDB database 
+2. Create server/config/dev.js file and export your "DB_URI"
+3. Install dependencies: `npm i`
+3. Open terminal for server (in 'server' folder) and launch server with `node index.js`
+4. Open a second terminal for client and launch client with `ng serve` from application root folder
+5. The application will run at http://localhost:4200/
